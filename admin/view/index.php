@@ -40,9 +40,12 @@ if(isset($_GET['act'])){
             $kq = getall_dm(); // Gọi hàm lấy tất cả danh mục
             include('../model/danhmuc.php'); // Bao gồm tệp hiển thị danh mục
             break;
-        // case 'thongke':
-        //     include('../model/thongke.php'); // 
-        //     break;
+        case 'thongke':
+            $sales_data = get_sales_data();
+            include "../model/thongke.php"; // Bao gồm tệp hiển thị biểu đồ
+            break;
+            
+        
         case 'donhang':
             // Giả sử bạn lấy iduser từ session, nếu không có giá trị thì để null
             $iduser = isset($_SESSION['iduser']) ? $_SESSION['iduser'] : null;

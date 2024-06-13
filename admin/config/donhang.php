@@ -206,4 +206,30 @@ function delete_cart_items($order_id){
         echo "Lỗi: " . $e->getMessage();
     }
 }
+function get_sales_data() {
+    try {
+        $conn = connectdb(); // Hàm kết nối cơ sở dữ liệu
+        $query = "
+            SELECT 
+                DATE_FORMAT(tbl_order.order_date, '%Y-%m') AS month, 
+                SUM(tbl_order.tongdonhang) AS total_revenue,
+                SUM(tbl_cart.soluong) AS total_quantity
+            FROM 
+                tbl_order
+            LEFT JOIN 
+                tbl_cart ON tbl_order.id = tbl_cart.iddh
+            WHERE 
+                tbl_order.status = 3
+            GROUP BY 
+                DATE_FORMAT(tbl_order.order_date, '%Y-%m')";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $sales_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $sales_data;
+    } catch (PDOException $e) {
+        echo "Lỗi: " . $e->getMessage();
+        return [];
+    }
+}
+
 ?>

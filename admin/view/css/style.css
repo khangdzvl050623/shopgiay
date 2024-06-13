@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+.headeradmin {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+.menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+    overflow: hidden;
+}
+.menu ul li {
+    float: left;
+}
+.menu ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+.menu ul li a:hover {
+    background-color: #111;
+}
+.frmtitle {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    margin-top: 20px;
+}
+.frmcontent {
+    background-color: #fff;
+    padding: 20px;
+}
+input[type="text"], input[type="submit"], input[type="reset"], input[type="button"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+input[type="submit"], input[type="reset"], input[type="button"] {
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover {
+    background-color: #111;
+}

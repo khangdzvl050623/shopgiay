@@ -14,12 +14,15 @@
             <h1 class="mb-2">Finding Your Perfect Shoes</h1>
             <div class="intro-text text-center text-md-left">
               <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at iaculis quam. Integer accumsan tincidunt fringilla. </p>
+              <?php
+                   $link = isset($_SESSION['role']) && $_SESSION['role'] == 0 ? 'index.php' : 'index1.php';
+                    echo '<a href="'.$link.'.?act=shop" class="btn btn-sm btn-primary">Shop Now</a> ';
+              ?>
               <p>
-                <a href="#" class="btn btn-sm btn-primary">Shop Now</a>
               </p>
             </div>
           </div>
-        </div>
+</div>
       </div>
     </div>
 
@@ -61,7 +64,9 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade" data-aos-delay="">
-            <a class="block-2-item" href="#">
+            <?php
+             $link = isset($_SESSION['role']) && $_SESSION['role'] == 0 ? 'index.php' : 'index1.php';
+             echo ' <a class="block-2-item" href="'.$link.'?act=shop">
               <figure class="image">
                 <img src="../view/images/women.jpg" alt="" class="img-fluid">
               </figure>
@@ -69,10 +74,13 @@
                 <span class="text-uppercase">Collections</span>
                 <h3>Women</h3>
               </div>
-            </a>
+            </a>';
+            ?>
           </div>
           <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="100">
-            <a class="block-2-item" href="#">
+           <?php 
+           $link = isset($_SESSION['role']) && $_SESSION['role'] == 0 ? 'index.php' : 'index1.php';
+          echo ' <a class="block-2-item" href="'.$link.'?act=shop">
               <figure class="image">
                 <img src="../view/images/children.jpg" alt="" class="img-fluid">
               </figure>
@@ -80,10 +88,13 @@
                 <span class="text-uppercase">Collections</span>
                 <h3>Children</h3>
               </div>
-            </a>
+            </a>';
+            ?>
           </div>
           <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="200">
-            <a class="block-2-item" href="#">
+          <?php 
+           $link = isset($_SESSION['role']) && $_SESSION['role'] == 0 ? 'index.php' : 'index1.php';
+              echo ' <a class="block-2-item" href="'.$link.'?act=shop">
               <figure class="image">
                 <img src="../view/images/men.jpg" alt="" class="img-fluid">
               </figure>
@@ -91,7 +102,8 @@
                 <span class="text-uppercase">Collections</span>
                 <h3>Men</h3>
               </div>
-            </a>
+            </a>';
+            ?>
           </div>
         </div>
       </div>
@@ -148,13 +160,20 @@
         </div>
         <div class="row align-items-center">
           <div class="col-md-12 col-lg-7 mb-5">
-            <a href="#"><img src="../view/images/blog_1.jpg" alt="Image placeholder" class="img-fluid rounded"></a>
+            <?php
+             $link = isset($_SESSION['role']) && $_SESSION['role'] == 0 ? 'index.php' : 'index1.php';
+             echo '<a href="'.$link.'?act=shop"><img src="../view/images/blog_1.jpg" alt="Image placeholder" class="img-fluid rounded"></a> ';
+            ?>
           </div>
           <div class="col-md-12 col-lg-5 text-center pl-md-5">
-            <h2><a href="#">50% less in all items</a></h2>
-            <p class="post-meta mb-4">By <a href="#">Carl Smith</a> <span class="block-8-sep">&bullet;</span> September 3, 2018</p>
+            <?php
+            echo'
+            <h2><a href="'.$link.'?act=shop">50% less in all items</a></h2>
+            <p class="post-meta mb-4">By <a>Carl Smith</a> <span class="block-8-sep">&bullet;</span> September 3, 2018</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam iste dolor accusantium facere corporis ipsum animi deleniti fugiat. Ex, veniam?</p>
-            <p><a href="#" class="btn btn-primary btn-sm">Shop Now</a></p>
+            <p><a href="'.$link.'?act=shop" class="btn btn-primary btn-sm">Shop Now</a></p>
+            ';
+            ?>
           </div>
         </div>
       </div>

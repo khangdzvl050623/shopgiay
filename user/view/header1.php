@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Shoppers &mdash; Colorlib e-Commerce Template</title>
+    <title>Store &mdash; 420</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
@@ -45,7 +45,7 @@
                 </div>
                 <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
                     <div class="site-logo">
-                        <a href="index1.php" class="js-logo-clone">Shoppers</a>
+                        <a href="index1.php" class="js-logo-clone">420 Stores</a>
                     </div>
                 </div>
                 <div class="col-6 col-md-4 order-3 order-md-3 text-right">

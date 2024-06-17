@@ -59,7 +59,7 @@
                             echo '<tr>';
                             echo '<td>' . $i . '</td>';
                             echo '<td>' . $sp['tensp'] . '</td>';
-                            echo '<td><img src="'. $sp['img'] .'" width"80px"></td>';
+                            echo '<td><img src="../../uploads/'. $sp['img'] .'" width="120px" class="img-thumbnail"></td>';
                             echo '<td>' . $sp['gia'] . '</td>';
                             echo '<td>' . $sp['detail'] . '</td>';
                             echo '<td><a href="index.php?act=updatesp&id=' . $sp['id'] . '">Sửa</a> | <a href="index.php?act=deletesp&id=' . $sp['id'] . '">Xóa</a></td>';

@@ -1,7 +1,7 @@
 <?php
 function checkuser($user, $pass) {
     $conn = connectdb();  // Kết nối cơ sở dữ liệu
-    
+
     if (!$conn) {
         die("Kết nối thất bại: " . $conn->connect_error);
     }
@@ -12,14 +12,15 @@ function checkuser($user, $pass) {
     // Chuẩn bị và thực hiện truy vấn
     $stmt = $conn->prepare("SELECT id, role, pass FROM tbl_user WHERE user = ?");
     $stmt->execute([$user]);
-    
+
     $result = $stmt->fetch(PDO::FETCH_ASSOC);  // Lấy kết quả
-    
+
+    // Kiểm tra kết quả và so sánh mật khẩu
     if ($result && $result['pass'] === $hashed_pass) {
         return $result;  // Trả về mảng chứa role và id nếu đúng
     }
-    
-    return -1;  // Trả về -1 nếu sai hoặc không tìm thấy
+
+    return false;  // Trả về false nếu sai hoặc không tìm thấy
 }
 
 function getall_taikhoan() {

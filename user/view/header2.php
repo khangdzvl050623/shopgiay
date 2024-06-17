@@ -54,7 +54,7 @@
                         <ul>
                             <?php if(isset($_SESSION['user'])) : ?>
                                 <li class="has-children">
-                                    <a href="#"><span class="icon icon-person"></span> <?php echo $_SESSION['user']['id']; ?></a>
+                                    <a href="#"><span class="icon icon-person"></span> <?php echo $_SESSION['user']['username']; ?></a>
                                     <ul class="dropdown">
                                         <li><a href="index.php?act=thoat">Logout</a></li>
                                         <li><a href="index.php?act=mybill">Đơn hàng của bạn</a></li>

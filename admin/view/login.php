@@ -21,18 +21,20 @@ if (isset($_POST['dangnhap'])) {
     if ($conn) { // Kiểm tra nếu kết nối thành công
         $result = checkuser($user, $pass); // Kiểm tra người dùng và trả về kết quả
         
-        if ($result['role'] == 1 || $result['role'] == 0) { // Nếu là admin hoặc người dùng
-            $_SESSION['role'] = $result['role']; // Lưu vai trò vào session
-            $_SESSION['user'] = array(
-                'id' => $result['id'], // Lưu ID của người dùng vào session
-                'username' => $user, // Lưu tên người dùng vào session
-            );
-            if ($result['role'] == 1) {
-                header('Location: index.php'); // Chuyển hướng đến trang admin
-            } else {
-                header('Location: ../../user/web/index.php'); // Chuyển hướng đến trang người dùng
+        if ($result !== false && is_array($result)) { // Kiểm tra nếu kết quả là một mảng và không phải false
+            if ($result['role'] == 1 || $result['role'] == 0) { // Nếu là admin hoặc người dùng
+                $_SESSION['role'] = $result['role']; // Lưu vai trò vào session
+                $_SESSION['user'] = array(
+                    'id' => $result['id'], // Lưu ID của người dùng vào session
+                    'username' => $user, // Lưu tên người dùng vào session
+                );
+                if ($result['role'] == 1) {
+                    header('Location: index.php'); // Chuyển hướng đến trang admin
+                } else {
+                    header('Location: ../../user/web/index.php'); // Chuyển hướng đến trang người dùng
+                }
+                exit; // Đảm bảo mã dừng sau khi chuyển hướng
             }
-            exit; // Đảm bảo mã dừng sau khi chuyển hướng
         } else {
             $login_error = "Username or password incorrect"; // Thông báo lỗi đăng nhập
         }
@@ -64,17 +66,17 @@ if (isset($_POST['dangki'])) {
         $conn = connectdb(); // Kết nối cơ sở dữ liệu
     
         if ($conn) { // Kiểm tra nếu kết nối thành công
-            $check_stmt = $conn->prepare("SELECT COUNT(*) FROM tbl_user WHERE user = ? OR email = ?");
-            $check_stmt->execute([$username, $email]);
-            $duplicate_count = $check_stmt->fetchColumn(); // Số lượng trùng lặp
-            
-            if ($duplicate_count > 0) {
-                $signup_error = "Tên người dùng hoặc email đã tồn tại."; // Thông báo lỗi trùng lặp
-            } else {
-                // Băm mật khẩu bằng md5
-                $hashed_pass = md5($password); // Mã hóa mật khẩu bằng md5
+            try {
+                $check_stmt = $conn->prepare("SELECT COUNT(*) FROM tbl_user WHERE user = ? OR email = ?");
+                $check_stmt->execute([$username, $email]);
+                $duplicate_count = $check_stmt->fetchColumn(); // Số lượng trùng lặp
+                
+                if ($duplicate_count > 0) {
+                    $signup_error = "Tên người dùng hoặc email đã tồn tại."; // Thông báo lỗi trùng lặp
+                } else {
+                    // Băm mật khẩu bằng md5
+                    $hashed_pass = md5($password); // Mã hóa mật khẩu bằng md5
 
-                try {
                     $stmt = $conn->prepare("INSERT INTO tbl_user (user, email, pass) VALUES (?, ?, ?)");
                     $result = $stmt->execute([$username, $email, $hashed_pass]); // Chèn người dùng mới
                     if ($result) {
@@ -83,17 +85,15 @@ if (isset($_POST['dangki'])) {
                     } else {
                         $signup_error = "Đăng ký thất bại, vui lòng thử lại.";
                     }
-                } catch (PDOException $e) {
-                    $signup_error = "Lỗi khi thêm người dùng vào cơ sở dữ liệu: " . $e->getMessage();
                 }
+            } catch (PDOException $e) {
+                $signup_error = "Lỗi khi kiểm tra hoặc thêm người dùng vào cơ sở dữ liệu: " . $e->getMessage();
             }
         } else {
             $signup_error = "Database connection error"; // Thông báo lỗi kết nối
         }
     }
 }
-
-ob_end_flush(); // Kết thúc bộ đệm đầu ra
 ?>
 
 <!DOCTYPE html>
@@ -283,7 +283,6 @@ ob_end_flush(); // Kết thúc bộ đệm đầu ra
 
 <!-- MDB -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.js"></script>
-
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var signInLink = document.querySelector(".sign-in-link");
@@ -302,7 +301,14 @@ ob_end_flush(); // Kết thúc bộ đệm đầu ra
             signUpForm.classList.remove("active");
             signInForm.classList.add("active");
         });
+
+        // Nếu có lỗi đăng ký, hiển thị form đăng ký, ngược lại chuyển đến form đăng nhập
+        <?php if (!empty($signup_error)) { ?>
+            signInForm.classList.remove("active");
+            signUpForm.classList.add("active");
+        <?php } ?>
     });
 </script>
+
 </body>
 </html>
